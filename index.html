@@ -217,6 +217,8 @@ dialog img{max-height:75vh;display:block;margin:auto}
 /* ---------- Imagen genérica (la misma en todo el prototipo) ---------- */
 const PH = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="#E8EDF0"/><path d="M0 0L400 300M400 0L0 300" stroke="#D9E0E4" stroke-width="2"/><rect x="150" y="105" width="100" height="76" rx="8" fill="none" stroke="#8A9AA4" stroke-width="5"/><circle cx="178" cy="132" r="9" fill="#8A9AA4"/><path d="M158 172l30-28 20 18 14-12 22 22z" fill="#8A9AA4"/><text x="200" y="222" font-family="Arial" font-size="17" fill="#586873" text-anchor="middle">Imagen de ejemplo</text></svg>');
 
+const FOTO = 'assets/equipo.jpeg';
+
 /* ---------- Datos de DEMOSTRACIÓN (ficticios) ---------- */
 const DEMO = {
   users: [{ user: 'comercial', name: 'Laura Comercial' }, { user: 'tecnico', name: 'Oficina Técnica' }],
@@ -229,10 +231,10 @@ const DEMO = {
     { code: '2E+J', title: 'Dos eléctricas + jockey', img: PH, desc: 'Texto descriptivo pendiente.', soon: true },
     { code: 'D+J', title: 'Diésel + jockey', img: PH, desc: 'Texto descriptivo pendiente.', soon: true },
     { code: '2D+J', title: 'Dos diésel + jockey', img: PH, desc: 'Texto descriptivo pendiente.', soon: true },
-    { code: 'E+D+J', title: 'Eléctrica + diésel + jockey', img: PH, desc: 'Configuración de ejemplo para el prototipo.' },
+    { code: 'E+D+J', title: 'Eléctrica + diésel + jockey', img: FOTO, desc: 'Configuración de ejemplo para el prototipo.' },
   ],
   equipos: [
-    { q: 60, h: 80, motor: '30 kW', img: PH },
+    { q: 60, h: 80, motor: '30 kW', img: FOTO },
   ],
 };
 const modelName = (e, conf) => `DEMO ${e.q}-${e.h} ${conf}`;
@@ -418,7 +420,7 @@ function curve(title, unit, pts, color) {
 function screenFicha() {
   const e = equipo();
   const row = (l, v) => `<div><dt>${l}</dt><dd>${v}</dd></div>`;
-  const gallery = [['Imagen 1', PH], ['Imagen 2', PH], ['Imagen 3', PH]];
+  const gallery = [['Fotografía', e.img], ['Imagen 2', PH], ['Imagen 3', PH]];
   const qls = e.q / 3.6;
   const altura = [0, 0.25, 0.5, 0.75, 1, 1.25].map((f) => [+(qls * f).toFixed(1), +((e.h * 1.2) - e.h * 0.5 * f * f).toFixed(1)]);
   return `<section class="hero">
@@ -432,7 +434,7 @@ function screenFicha() {
           <div class="tile"><span>Motor</span><b>${e.motor.replace(' kW', '')}</b><small>kW</small></div>
         </div>
       </div>
-      <div class="plate"><img src="${PH}" alt="Imagen de ejemplo"></div>
+      <div class="plate"><img src="${e.img}" alt="${esc(e.name)}"></div>
     </section>
     <div class="grid2">
       <section class="panel"><div class="panel-head"><h2>Bombas y prestaciones</h2><span class="badge">Datos de ejemplo</span></div>
